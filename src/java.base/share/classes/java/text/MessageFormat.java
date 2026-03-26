@@ -47,6 +47,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
 /**
@@ -1146,6 +1147,7 @@ public class MessageFormat extends Format {
     /**
      * Equality comparison between two message format objects
      */
+    @Override
     public boolean equals(Object obj) {
         if (this == obj)                      // quick check
             return true;
@@ -1154,8 +1156,7 @@ public class MessageFormat extends Format {
         MessageFormat other = (MessageFormat) obj;
         return (maxOffset == other.maxOffset
                 && pattern.equals(other.pattern)
-                && ((locale != null && locale.equals(other.locale))
-                 || (locale == null && other.locale == null))
+                && Objects.equals(locale,other.locale)
                 && Arrays.equals(offsets,other.offsets)
                 && Arrays.equals(argumentNumbers,other.argumentNumbers)
                 && Arrays.equals(formats,other.formats));
@@ -1164,6 +1165,7 @@ public class MessageFormat extends Format {
     /**
      * Generates a hash code for the message format object.
      */
+    @Override
     public int hashCode() {
         return pattern.hashCode(); // enough for reasonable distribution
     }
