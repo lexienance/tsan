@@ -50,7 +50,7 @@ class ResolvedFieldEntry {
   int _field_offset;            // Field offset in bytes
   u2 _field_index;              // Index into field information in holder InstanceKlass
   u2 _cpool_index;              // Constant pool index
-  u1 _tos_state;                      // TOS state
+  u1 _tos_state;                // TOS state
   u1 _flags;                    // Flags: [0000|00|is_final|is_volatile]
   u1 _get_code, _put_code;      // Get and Put bytecodes of the field
 
@@ -103,11 +103,14 @@ public:
   // Printing
   void print_on(outputStream* st) const;
 
-  void set_flags(bool is_final, bool is_volatile, bool is_tsan_ignore) {
-    u1 new_flags = (static_cast<u1>(is_final) << static_cast<u1>(is_final_shift)) |
-                   static_cast<u1>(is_volatile) |
-                   (static_cast<u1>(is_tsan_ignore) << static_cast<u1>(is_tsan_ignore_shift));
-    _flags = new_flags;
+  void set_flags(bool is_final_flag, bool is_volatile_flag, bool is_tsan_ignore_flag) {
+    int new_flags = (is_final_flag << is_final_shift) |
+                    static_cast<int>(is_volatile_flag) |
+                    (is_tsan_ignore_flag << is_tsan_ignore_shift);
+    _flags = checked_cast<u1>(new_flags);
+    assert(is_final() == is_final_flag, "Must be");
+    assert(is_volatile() == is_volatile_flag, "Must be");
+    assert(is_tsan_ignore() == is_tsan_ignore_flag, "Must be");
   }
 
   inline void set_bytecode(u1* code, u1 new_code) {
@@ -120,7 +123,7 @@ public:
   }
 
   // Populate the strucutre with resolution information
-  void fill_in(InstanceKlass* klass, intx offset, int index, int tos_state, u1 b1, u1 b2) {
+  void fill_in(InstanceKlass* klass, int offset, u2 index, u1 tos_state, u1 b1, u1 b2) {
     _field_holder = klass;
     _field_offset = offset;
     _field_index = index;
