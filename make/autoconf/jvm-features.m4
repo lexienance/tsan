@@ -311,7 +311,6 @@ AC_DEFUN_ONCE([JVM_FEATURES_CHECK_SHENANDOAHGC],
 ])
 
 ###############################################################################
-<<<<<<< HEAD
 # Check if the feature 'static-build' is available on this platform.
 #
 AC_DEFUN_ONCE([JVM_FEATURES_CHECK_STATIC_BUILD],
@@ -375,8 +374,6 @@ AC_DEFUN([JVM_FEATURES_TSAN_LAUNCHER_FLAG],
 ])
 
 ###############################################################################
-=======
->>>>>>> 2a37764e7428d579a3080e62681f1c9c9f816c1e~1
 # Check if the feature 'zgc' is available on this platform.
 #
 AC_DEFUN_ONCE([JVM_FEATURES_CHECK_ZGC],
@@ -446,11 +443,8 @@ AC_DEFUN_ONCE([JVM_FEATURES_PREPARE_PLATFORM],
   JVM_FEATURES_CHECK_DTRACE
   JVM_FEATURES_CHECK_JVMCI
   JVM_FEATURES_CHECK_SHENANDOAHGC
-<<<<<<< HEAD
   JVM_FEATURES_CHECK_STATIC_BUILD
   JVM_FEATURES_CHECK_TSAN
-=======
->>>>>>> 2a37764e7428d579a3080e62681f1c9c9f816c1e~1
   JVM_FEATURES_CHECK_ZGC
 
 ])
