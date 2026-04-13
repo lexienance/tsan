@@ -72,7 +72,7 @@ class TsanOopMapTableKey : public CHeapObj<mtInternal> {
   TsanOopMapTableKey(const TsanOopMapTableKey& src, oop obj);
   TsanOopMapTableKey& operator=(const TsanOopMapTableKey&) = delete;
 
-  void release_weak_handle() const;
+  void release_weak_handle();
   oop object_no_keepalive() const;
 
   oop obj() const { return _obj; };

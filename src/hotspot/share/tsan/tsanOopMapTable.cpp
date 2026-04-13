@@ -43,7 +43,7 @@ TsanOopMapTableKey::TsanOopMapTableKey(const TsanOopMapTableKey& entry, oop obj)
   _obj = obj;
 }
 
-void TsanOopMapTableKey::release_weak_handle() const {
+void TsanOopMapTableKey::release_weak_handle() {
   _wh.release(TsanOopMap::oop_storage());
 }
 
@@ -55,7 +55,7 @@ TsanOopMapTable::TsanOopMapTable() : _table(512, 0x3fffffff) {}
 
 void TsanOopMapTable::clear() {
   struct RemoveAll {
-    bool do_entry(const TsanOopMapTableKey & entry, size_t size) {
+    bool do_entry(TsanOopMapTableKey & entry, size_t size) {
       entry.release_weak_handle();
       return true;
     }
